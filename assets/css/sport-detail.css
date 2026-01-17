@@ -1,0 +1,178 @@
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.section {
+  padding: 4rem 1.5rem;
+}
+.section:first-of-type {
+  padding-top: 8rem;
+  text-align: center;
+}
+.hero-title {
+  font-size: 2.8rem;
+  color: var(--gold);
+  margin: 1rem 0;
+  font-weight: 700;
+}
+.hero-subtitle {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 1rem auto 0;
+}
+.tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  text-decoration: none;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.tab:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.15);
+}
+.tab.active {
+  color: #000;
+  background: var(--gold);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.ground-diagram,
+.positions-section,
+.rules-section,
+.players-section {
+  margin-top: 3rem;
+}
+.section-title {
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+.info-grid,
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.info-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  transition: 0.3s ease;
+}
+.info-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-6px);
+}
+.info-card h3 {
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+.info-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.player-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.player-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-6px);
+}
+.player-name {
+  color: var(--gold);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.player-role {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+.player-description {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.sport-card img,
+.ground-diagram img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .tabs {
+    gap: 0.6rem;
+  }
+  .tab {
+    font-size: 0.85rem;
+    padding: 0.45rem 1.1rem;
+  }
+  .info-grid,
+  .player-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 1.7rem;
+  }
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+  .tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 1.5rem;
+  }
+  .info-grid,
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-title {
+    font-size: 1.3rem;
+  }
+  .info-card,
+  .player-card {
+    padding: 1.5rem;
+  }
+}
+

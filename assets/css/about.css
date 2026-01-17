@@ -1,0 +1,106 @@
+
+.sport-detail-page {
+  display: flex;
+  flex-direction: column;
+}
+.hero-about {
+  text-align: center;
+  padding-top: 8rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-content-about {
+  max-width: 800px;
+}
+.sport-title {
+  font-size: 2.8rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.hero-about p {
+  max-width: 800px;
+  margin: 1rem auto;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.accent-line {
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin: 1.5rem auto;
+  border-radius: 2px;
+}
+.about-main {
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+.about-main p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+.about-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2.5rem 2rem;
+  transition: 0.3s ease;
+  text-align: center;
+}
+.about-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+}
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.section-title {
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.section-content {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.detail-container {
+  flex: 1;
+  padding-bottom: 3rem;
+}
+@media (max-width: 768px) {
+  .sport-title {
+    font-size: 2.1rem;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-about {
+    padding-top: 6rem;
+    min-height: 50vh;
+  }
+}
+@media (max-width: 480px) {
+  .sport-title {
+    font-size: 1.7rem;
+  }
+  .about-card {
+    padding: 1.8rem 1.5rem;
+  }
+  .card-icon {
+    font-size: 2.5rem;
+  }
+}
+
