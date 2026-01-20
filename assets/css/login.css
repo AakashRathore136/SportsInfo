@@ -17,9 +17,14 @@
   width: 100%;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-xl);
   padding: 2.5rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+}
+.form-container:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-xl);
 }
 .form-title {
   color: var(--gold);
@@ -49,15 +54,16 @@
   padding: 0.9rem 1rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   color: var(--text);
-  font-size: 0.95rem;
-  transition: 0.3s ease;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-base);
 }
 .form-input:focus {
   outline: none;
   border-color: var(--gold);
   background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px var(--gold-light);
 }
 .form-input::placeholder {
   color: var(--muted-2);
@@ -91,10 +97,11 @@
 .form-links a {
   color: var(--gold);
   text-decoration: none;
-  transition: 0.3s ease;
+  transition: all var(--transition-base);
 }
 .form-links a:hover {
   color: var(--gold-dark);
+  text-decoration: underline;
 }
 .form-switch {
   text-align: center;

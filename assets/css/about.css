@@ -50,15 +50,16 @@
 .about-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-xl);
   padding: 2.5rem 2rem;
-  transition: 0.3s ease;
+  transition: all var(--transition-base);
   text-align: center;
 }
 .about-card:hover {
   border-color: var(--gold);
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+  background: var(--card-hover);
 }
 .card-icon {
   font-size: 3rem;
@@ -70,11 +71,12 @@
   color: var(--gold);
   margin-bottom: 1rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 .section-content {
   color: var(--muted);
-  line-height: 1.8;
-  font-size: 0.95rem;
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-base);
 }
 .detail-container {
   flex: 1;

@@ -36,19 +36,19 @@
   text-decoration: none;
   padding: 0.55rem 1.4rem;
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
   font-weight: 500;
   color: var(--muted);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border);
-  transition: all 0.25s ease;
+  transition: all var(--transition-fast);
   white-space: nowrap;
   cursor: pointer;
 }
 .tab:hover {
   color: var(--gold);
   border-color: var(--gold);
-  background: rgba(212, 175, 55, 0.15);
+  background: var(--gold-light);
 }
 .tab.active {
   color: #000;
@@ -78,58 +78,70 @@
 .info-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 1.8rem;
-  transition: 0.3s ease;
+  transition: all var(--transition-base);
 }
 .info-card:hover {
   border-color: var(--gold);
-  transform: translateY(-6px);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  background: var(--card-hover);
 }
 .info-card h3 {
   color: var(--gold);
   margin-bottom: 0.8rem;
   font-weight: 600;
+  letter-spacing: 0.3px;
 }
 .info-card p {
   color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
 }
 .player-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: 2rem 1.5rem;
   text-align: center;
-  transition: 0.3s ease;
+  transition: all var(--transition-base);
 }
 .player-card:hover {
   border-color: var(--gold);
-  transform: translateY(-6px);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  background: var(--card-hover);
 }
 .player-name {
   color: var(--gold);
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
 }
 .player-role {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
   margin-bottom: 0.8rem;
+  font-weight: 500;
 }
 .player-description {
   color: var(--muted);
   font-size: 0.85rem;
-  line-height: 1.6;
+  line-height: var(--line-height-relaxed);
 }
 .sport-card img,
 .ground-diagram img {
   max-width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   margin: 2rem 0;
+  transition: transform var(--transition-base);
+}
+.sport-card img:hover,
+.ground-diagram img:hover {
+  transform: scale(1.02);
 }
 @media (max-width: 768px) {
   .hero-title {
