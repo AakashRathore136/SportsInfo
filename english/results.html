@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Results - SportsInfo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .results-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            border: 2px solid var(--accent-gold);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+        }
+
+        .score-card h2 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin: 1rem 0;
+        }
+
+        .score-percentage {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin: 0.5rem 0;
+        }
+
+        .performance-message {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .performance-excellent {
+            color: #4CAF50;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .performance-good {
+            color: #66BB6A;
+            border-left: 4px solid #66BB6A;
+        }
+
+        .performance-average {
+            color: var(--accent-gold);
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .performance-poor {
+            color: #ff6b6b;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .result-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 5px solid #ccc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .result-item:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        .result-item.correct {
+            border-left-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .result-item.incorrect {
+            border-left-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .question-text {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .answer-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .answer-label {
+            flex: 0 0 120px;
+            font-weight: bold;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .answer-label.user {
+            color: #bbb;
+        }
+
+        .answer-content {
+            flex: 1;
+        }
+
+        .answer-correct {
+            color: #4CAF50;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .answer-correct::before {
+            content: "✓";
+            font-size: 1.2rem;
+            color: #4CAF50;
+        }
+
+        .answer-incorrect {
+            color: #ff6b6b;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .answer-incorrect::before {
+            content: "✗";
+            font-size: 1.2rem;
+            color: #ff6b6b;
+        }
+
+        .answer-user {
+            color: #ccc;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-retake {
+            background: var(--accent-gold);
+            color: black;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-retake:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-home {
+            background: transparent;
+            color: var(--accent-gold);
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--accent-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-box h4 {
+            color: #999;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .stat-box .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                padding: 1rem;
+            }
+
+            .score-card {
+                padding: 1.5rem;
+            }
+
+            .score-display {
+                font-size: 2.5rem;
+            }
+
+            .answer-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .answer-label {
+                flex: 1 1 100%;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-retake, .btn-home {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="../index.html" class="lang-selector">
+                    <span class="lang-icon">🌐</span>
+                    <span class="lang-text">Change Language</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="sports-selection.html" class="nav-link">Back to Sports</a>
+            </div>
+        </nav>
+
+        <section class="section" style="padding-top: 8rem;">
+            <div class="container">
+                <h1 class="section-title">Assessment Results</h1>
+                <p class="section-subtitle">Review your quiz performance and see the correct answers</p>
+                
+                <div class="results-container">
+                    <div class="score-card">
+                        <h2>Your Score</h2>
+                        <div class="score-display" id="scoreDisplay">0/0</div>
+                        <div class="score-percentage" id="percentageDisplay">0%</div>
+                        <div class="performance-message" id="performanceMessage"></div>
+                        <div class="stats-summary">
+                            <div class="stat-box">
+                                <h4>Correct Answers</h4>
+                                <div class="value" id="correctCount" style="color: #4CAF50;">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <h4>Incorrect Answers</h4>
+                                <div class="value" id="incorrectCount" style="color: #ff6b6b;">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <h4>Total Questions</h4>
+                                <div class="value" id="totalCount">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <h4>Accuracy</h4>
+                                <div class="value" id="accuracyDisplay">0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-list" id="resultsList">
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-retake" onclick="location.href='assessment.html';">Retake Assessment</button>
+                        <button class="btn-home" onclick="location.href='sports-selection.html';">Back to Sports</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SportsInfo</h4>
+                    <p>Your trusted partner in sports education since 2020.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="register.html">Register</a>
+                    <a href="sports-selection.html">Courses</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Sports</h4>
+                    <a href="cricket.html">Cricket</a>
+                    <a href="football.html">Football</a>
+                    <a href="golf.html">Golf</a>
+                    <a href="basket.html">Basketball</a>
+                    <a href="assessment.html">Assessment</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>info@sportsmaster.com</p>
+                    <p>+1 234 567 8900</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SportsInfo. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <a href="feedback.html" class="feedback-btn" title="Give Feedback">💬</a>
+
+    <script>
+        // Quiz data with questions and correct answers
+        const quizData = [
+            {
+                id: 'q1',
+                question: '1. How many players are there in a cricket team?',
+                options: ['9 players', '10 players', '11 players', '12 players'],
+                values: ['9', '10', '11', '12'],
+                correct: '11'
+            },
+            {
+                id: 'q2',
+                question: '2. What is the length of a cricket pitch?',
+                options: ['20 yards', '22 yards', '24 yards', '26 yards'],
+                values: ['20', '22', '24', '26'],
+                correct: '22'
+            },
+            {
+                id: 'q3',
+                question: '3. Who holds the record for highest individual Test score (400 not out)?',
+                options: ['Sachin Tendulkar', 'Brian Lara', 'Don Bradman', 'Virat Kohli'],
+                values: ['tendulkar', 'lara', 'bradman', 'kohli'],
+                correct: 'lara'
+            },
+            {
+                id: 'q4',
+                question: '4. How long is a standard football match?',
+                options: ['60 minutes', '80 minutes', '90 minutes', '120 minutes'],
+                values: ['60', '80', '90', '120'],
+                correct: '90'
+            },
+            {
+                id: 'q5',
+                question: '5. From what distance is a penalty kick taken in football?',
+                options: ['10 yards', '12 yards', '15 yards', '18 yards'],
+                values: ['10', '12', '15', '18'],
+                correct: '12'
+            },
+            {
+                id: 'q6',
+                question: '6. Who won the FIFA World Cup 2022?',
+                options: ['France', 'Brazil', 'Argentina', 'Germany'],
+                values: ['france', 'brazil', 'argentina', 'germany'],
+                correct: 'argentina'
+            },
+            {
+                id: 'q7',
+                question: '7. How many runs does hitting the ball over the boundary score in cricket?',
+                options: ['4 runs', '5 runs', '6 runs', '7 runs'],
+                values: ['4', '5', '6', '7'],
+                correct: '6'
+            },
+            {
+                id: 'q8',
+                question: '8. Who is known as "The God of Cricket"?',
+                options: ['Virat Kohli', 'Sachin Tendulkar', 'MS Dhoni', 'Sunil Gavaskar'],
+                values: ['kohli', 'tendulkar', 'dhoni', 'gavaskar'],
+                correct: 'tendulkar'
+            },
+            {
+                id: 'q9',
+                question: '9. What happens when a football player receives two yellow cards?',
+                options: ['Gets a warning', 'Gets a red card and is sent off', 'Opponent gets a penalty', 'Nothing happens'],
+                values: ['warning', 'red', 'penalty', 'nothing'],
+                correct: 'red'
+            },
+            {
+                id: 'q10',
+                question: '10. How many Ballon d\'Or awards has Lionel Messi won?',
+                options: ['5', '6', '7', '8'],
+                values: ['5', '6', '7', '8'],
+                correct: '8'
+            },
+            {
+                id: 'q11',
+                question: '11. How many holes are on a standard golf course?',
+                options: ['9 holes', '18 holes', '27 holes', '36 holes'],
+                values: ['9', '18', '27', '36'],
+                correct: '18'
+            },
+            {
+                id: 'q12',
+                question: '12. What is the term for one stroke under par in golf?',
+                options: ['Eagle', 'Birdie', 'Bogey', 'Albatross'],
+                values: ['eagle', 'birdie', 'bogey', 'albatross'],
+                correct: 'birdie'
+            },
+            {
+                id: 'q13',
+                question: '13. How many minutes is an NBA basketball game?',
+                options: ['36 minutes', '40 minutes', '48 minutes', '60 minutes'],
+                values: ['36', '40', '48', '60'],
+                correct: '48'
+            },
+            {
+                id: 'q14',
+                question: '14. How many points is a three-pointer worth in basketball?',
+                options: ['2 points', '3 points', '4 points', '5 points'],
+                values: ['2', '3', '4', '5'],
+                correct: '3'
+            },
+            {
+                id: 'q15',
+                question: '15. Who is considered the greatest basketball player of all time?',
+                options: ['LeBron James', 'Michael Jordan', 'Kareem Abdul-Jabbar', 'Stephen Curry'],
+                values: ['lebron', 'jordan', 'kareem', 'curry'],
+                correct: 'jordan'
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get results from localStorage
+            const results = JSON.parse(localStorage.getItem('quizResults')) || {};
+            
+            if (!results.answers || Object.keys(results.answers).length === 0) {
+                document.querySelector('.results-container').innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <h2 style="color: #ff6b6b;">No Results Found</h2>
+                        <p style="color: #ccc;">Please take the assessment first.</p>
+                        <a href="assessment.html" class="btn btn-primary" style="margin-top: 1rem;">Take Assessment</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Calculate scores
+            let correctCount = 0;
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = '';
+
+            quizData.forEach((quiz) => {
+                const userAnswer = results.answers[quiz.id];
+                const isCorrect = userAnswer === quiz.correct;
+                const selectedIndex = quiz.values.indexOf(userAnswer);
+                const correctIndex = quiz.values.indexOf(quiz.correct);
+
+                if (isCorrect) correctCount++;
+
+                // Get display text for answers
+                const userAnswerText = selectedIndex !== -1 ? quiz.options[selectedIndex] : 'Not answered';
+                const correctAnswerText = quiz.options[correctIndex];
+
+                // Create result item
+                const resultItem = document.createElement('div');
+                resultItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultItem.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <span style="font-size: 1.5rem;">${isCorrect ? '✓' : '✗'}</span>
+                        <div class="question-text" style="margin: 0;">${quiz.question}</div>
+                    </div>
+                    <div class="answer-row">
+                        <div class="answer-label user">Your Answer:</div>
+                        <div class="answer-content ${isCorrect ? 'answer-correct' : 'answer-incorrect'}" style="text-decoration: ${isCorrect ? 'none' : 'none'};">
+                            ${userAnswerText}
+                        </div>
+                    </div>
+                    ${!isCorrect ? `
+                        <div class="answer-row">
+                            <div class="answer-label">Correct Answer:</div>
+                            <div class="answer-content answer-correct">
+                                ${correctAnswerText}
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+                resultsList.appendChild(resultItem);
+            });
+
+            // Update score displays
+            const total = quizData.length;
+            const incorrectCount = total - correctCount;
+            const percentage = Math.round((correctCount / total) * 100);
+
+            document.getElementById('scoreDisplay').textContent = `${correctCount}/${total}`;
+            document.getElementById('percentageDisplay').textContent = `${percentage}%`;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('accuracyDisplay').textContent = `${percentage}%`;
+
+            // Set performance message
+            const perfMessage = document.getElementById('performanceMessage');
+            let message = '';
+            let className = '';
+
+            if (percentage >= 90) {
+                message = '🌟 Outstanding! You have excellent knowledge of sports.';
+                className = 'performance-excellent';
+            } else if (percentage >= 80) {
+                message = '👏 Great job! You demonstrated strong sports knowledge.';
+                className = 'performance-good';
+            } else if (percentage >= 70) {
+                message = '📚 Good effort! Keep practicing to improve your skills.';
+                className = 'performance-average';
+            } else if (percentage >= 60) {
+                message = '💪 Fair attempt. Review the topics and try again!';
+                className = 'performance-average';
+            } else {
+                message = '📖 Keep learning! Review the materials and retake the assessment.';
+                className = 'performance-poor';
+            }
+
+            perfMessage.textContent = message;
+            perfMessage.className = className;
+
+            // Clear localStorage after displaying
+            localStorage.removeItem('quizResults');
+        });
+    </script>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

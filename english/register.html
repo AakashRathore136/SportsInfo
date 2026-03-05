@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Registration - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
     <div class="page-wrapper">
         <nav class="navbar">
             <div class="nav-left">
-                <a href="index.html" class="lang-selector">
+                <a href="../index.html" class="lang-selector">
                     <span class="lang-icon">🌐</span>
                     <span class="lang-text">Change Language</span>
                 </a>
-            </div>
-            <div class="nav-center">
-                <a href="index.html" class="nav-brand">SportsInfo</a>
             </div>
             <div class="nav-right">
                 <a href="about.html" class="nav-link">About Us</a>
@@ -58,6 +54,12 @@
                         <div class="form-group">
                             <label class="form-label" for="regPassword">Create Password</label>
                             <input type="password" id="regPassword" class="form-input" placeholder="Create a strong password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="profilePic">Profile Picture (Optional)</label>
+                            <input type="file" id="profilePic" class="form-input" accept="image/*">
+                            <small style="color: #999; display: block; margin-top: 0.5rem;">Accepted formats: JPG, PNG, GIF (Max 5MB)</small>
                         </div>
                         
                         <h3 style="color: var(--accent-gold); margin: 2rem 0 1.5rem;">Select Your Courses</h3>
@@ -128,10 +130,124 @@
         </section>
 
         <footer class="footer">
-            <p>SportsInfo</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SportsInfo. All rights reserved.</p>
+            </div>
         </footer>
     </div>
     
     <a href="feedback.html" class="feedback-btn" title="Give Feedback">💬</a>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Registration form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('regEmail');
+            const phone = document.getElementById('phone');
+            const password = document.getElementById('regPassword');
+            const profilePic = document.getElementById('profilePic');
+            const experience = document.getElementById('experience');
+            const terms = document.querySelector('input[type="checkbox"]');
+            let isValid = true;
+            
+            // First name validation
+            if (!firstName.value.trim()) {
+                alert('Please enter your first name');
+                firstName.focus();
+                isValid = false;
+            } else if (firstName.value.trim().length < 2) {
+                alert('First name must be at least 2 characters long');
+                firstName.focus();
+                isValid = false;
+            }
+            
+            // Last name validation
+            if (isValid && !lastName.value.trim()) {
+                alert('Please enter your last name');
+                lastName.focus();
+                isValid = false;
+            } else if (isValid && lastName.value.trim().length < 2) {
+                alert('Last name must be at least 2 characters long');
+                lastName.focus();
+                isValid = false;
+            }
+            
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (isValid && !email.value.trim()) {
+                alert('Please enter your email address');
+                email.focus();
+                isValid = false;
+            } else if (isValid && !emailPattern.test(email.value)) {
+                alert('Please enter a valid email address');
+                email.focus();
+                isValid = false;
+            }
+            
+            // Phone validation (optional but if provided should be valid)
+            if (isValid && phone.value.trim()) {
+                const phonePattern = /^[\d\s\-\+\(\)]+$/;
+                if (!phonePattern.test(phone.value) || phone.value.replace(/\D/g, '').length < 10) {
+                    alert('Please enter a valid phone number (at least 10 digits)');
+                    phone.focus();
+                    isValid = false;
+                }
+            }
+            
+            // Password validation
+            if (isValid && !password.value) {
+                alert('Please create a password');
+                password.focus();
+                isValid = false;
+            } else if (isValid && password.value.length < 8) {
+                alert('Password must be at least 8 characters long');
+                password.focus();
+                isValid = false;
+            } else if (isValid && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password.value)) {
+                alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+                password.focus();
+                isValid = false;
+            }
+            
+            // Profile picture validation (optional but if provided should be valid)
+            if (isValid && profilePic.files.length > 0) {
+                const file = profilePic.files[0];
+                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a valid image file (JPG, PNG, or GIF)');
+                    profilePic.focus();
+                    isValid = false;
+                } else if (file.size > maxSize) {
+                    alert('Profile picture must be less than 5MB');
+                    profilePic.focus();
+                    isValid = false;
+                }
+            }
+            
+            // Experience level validation
+            if (isValid && !experience.value) {
+                alert('Please select your experience level');
+                experience.focus();
+                isValid = false;
+            }
+            
+            // Terms and conditions validation
+            if (isValid && !terms.checked) {
+                alert('Please agree to the Terms of Service and Privacy Policy');
+                terms.focus();
+                isValid = false;
+            }
+            
+            if (isValid) {
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>

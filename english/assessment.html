@@ -4,24 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessment - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/assessment.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
     <div class="page-wrapper">
         <nav class="navbar">
             <div class="nav-left">
-                <a href="index.html" class="lang-selector">
+                <a href="../index.html" class="lang-selector">
                     <span class="lang-icon">🌐</span>
                     <span class="lang-text">Change Language</span>
                 </a>
             </div>
-            <div class="nav-center">
-                <a href="index.html" class="nav-brand">SportsInfo</a>
-            </div>
             <div class="nav-right">
                 <a href="about.html" class="nav-link">About Us</a>
+                <a href="sports-selection.html" class="nav-link">Back to Sports</a>
             </div>
         </nav>
 
@@ -401,13 +398,16 @@
                     <p>+1 234 567 8900</p>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SportsInfo. All rights reserved.</p>
+            </div>
         </footer>
     </div>
     
     <a href="feedback.html" class="feedback-btn" title="Give Feedback">💬</a>
 
     <script>
-    // Handle assessment scoring without page reload
+    // Handle assessment scoring and redirect to results page
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('.quiz-container form');
         const result = document.getElementById('result');
@@ -433,22 +433,46 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Collect user answers
+            const userAnswers = {};
             let score = 0;
             const total = Object.keys(answers).length;
 
             for (const [q, correct] of Object.entries(answers)) {
                 const selected = form.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === correct) score++;
+                const userAnswer = selected ? selected.value : null;
+                userAnswers[q] = userAnswer;
+                
+                if (userAnswer === correct) score++;
             }
 
+            // Store results in localStorage
+            const quizResults = {
+                answers: userAnswers,
+                score: score,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+
+            // Show temporary message then redirect
             result.style.display = 'block';
             result.innerHTML = `
                 <h3>Assessment Complete!</h3>
                 <p>You scored ${score} out of ${total}.</p>
+                <p style="margin-top: 1rem; color: #999;">Redirecting to results page...</p>
             `;
             result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Redirect to results page after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'results.html';
+            }, 2000);
         });
     });
     </script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

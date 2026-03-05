@@ -4,24 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback & Contact Us - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/feedback.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
     <div class="page-wrapper">
         <nav class="navbar">
             <div class="nav-left">
-                <a href="index.html" class="lang-selector">
+                <a href="../index.html" class="lang-selector">
                     <span class="lang-icon">🌐</span>
                     <span class="lang-text">Change Language</span>
                 </a>
             </div>
-            <div class="nav-center">
-                <a href="index.html" class="nav-brand">SportsInfo</a>
-            </div>
             <div class="nav-right">
                 <a href="about.html" class="nav-link">About Us</a>
+                <a href="sports-selection.html" class="nav-link">Sports</a>
             </div>
         </nav>
 
@@ -64,6 +61,11 @@
                                 <label class="form-label">Message</label>
                                 <textarea class="form-input" placeholder="Your message..." required></textarea>
                             </div>
+                            <div class="form-group">
+                                <label class="form-label">Attach File (Optional)</label>
+                                <input type="file" class="form-input" name="attachment" accept="*/*">
+                                <small style="color: #999; display: block; margin-top: 0.5rem;">All file types accepted</small>
+                            </div>
                             <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
                         </form>
                     </div>
@@ -72,10 +74,32 @@
         </section>
 
         <footer class="footer">
-            <p>SportsInfo</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SportsInfo</h4>
+                    <p>Your trusted partner in sports education.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="about.html">About</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Sports</h4>
+                    <a href="cricket.html">Cricket</a>
+                    <a href="football.html">Football</a>
+                    <a href="golf.html">Golf</a>
+                    <a href="basket.html">Basketball</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SportsInfo. All rights reserved.</p>
+            </div>
         </footer>
     </div>
     
     <a href="feedback.html" class="feedback-btn" title="Give Feedback">💬</a>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

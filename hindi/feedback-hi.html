@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>फीडबैक - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/feedback.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
@@ -62,6 +61,11 @@
                                 <label class="form-label">संदेश</label>
                                 <textarea class="form-input" placeholder="आपका संदेश..." required></textarea>
                             </div>
+                            <div class="form-group">
+                                <label class="form-label">फ़ाइल संलग्न करें (वैकल्पिक)</label>
+                                <input type="file" class="form-input" name="attachment" accept="*/*">
+                                <small style="color: #999; display: block; margin-top: 0.5rem;">सभी फ़ाइल प्रकार स्वीकार किए जाते हैं</small>
+                            </div>
                             <button type="submit" class="btn btn-primary" style="width: 100%;">भेजें</button>
                         </form>
                     </div>
@@ -95,5 +99,7 @@
     </div>
     
     <a href="feedback-hi.html" class="feedback-btn" title="फीडबैक दें">💬</a>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

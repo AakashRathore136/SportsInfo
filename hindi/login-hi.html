@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>लॉगिन - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
@@ -55,5 +54,44 @@
         </footer>
     </div>
     <a href="feedback-hi.html" class="feedback-btn" title="फीडबैक दें">💬</a>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Login form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            let isValid = true;
+            
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim()) {
+                alert('कृपया अपना ईमेल पता दर्ज करें');
+                email.focus();
+                isValid = false;
+            } else if (!emailPattern.test(email.value)) {
+                alert('कृपया एक मान्य ईमेल पता दर्ज करें');
+                email.focus();
+                isValid = false;
+            }
+            
+            // Password validation
+            if (isValid && !password.value) {
+                alert('कृपया अपना पासवर्ड दर्ज करें');
+                password.focus();
+                isValid = false;
+            } else if (isValid && password.value.length < 6) {
+                alert('पासवर्ड कम से कम 6 अक्षर लंबा होना चाहिए');
+                password.focus();
+                isValid = false;
+            }
+            
+            if (isValid) {
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>

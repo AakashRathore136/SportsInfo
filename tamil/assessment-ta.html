@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>மதிப்பீடு - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/assessment.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
@@ -347,19 +346,42 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            // Collect user answers
+            const userAnswers = {};
             let score = 0;
             const total = Object.keys(answers).length;
 
             for (const [q, correct] of Object.entries(answers)) {
                 const selected = form.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === correct) score++;
+                const userAnswer = selected ? selected.value : null;
+                userAnswers[q] = userAnswer;
+                
+                if (userAnswer === correct) score++;
             }
 
+            // Store results in localStorage
+            const quizResults = {
+                answers: userAnswers,
+                score: score,
+                total: total,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('quizResults', JSON.stringify(quizResults));
+
+            // Show temporary message then redirect
             result.style.display = 'block';
-            result.innerHTML = `<h3>மதிப்பீடு முடிந்துவிட்டது!</h3><p>உங்கள் மதிப்பீடு: ${score} ${total} க்குள்</p>`;
+            result.innerHTML = `<h3>மதிப்பீடு முடிந்துவிட்டது!</h3><p>உங்கள் மதிப்பீடு: ${score} ${total} க்குள்</p><p style="margin-top: 1rem; color: #999;">முடிவுகளின் பக்கத்திற்கு திறக்கிறது...</p>`;
             result.scrollIntoView({ behavior: 'smooth' });
+
+            // Redirect to results page after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'results-ta.html';
+            }, 2000);
         });
     });
     </script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>

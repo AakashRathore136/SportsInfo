@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - SportsInfo</title>
-    <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div class="animated-bg"></div>
@@ -16,9 +15,6 @@
                     <span class="lang-icon">🌐</span>
                     <span class="lang-text">Change Language</span>
                 </a>
-            </div>
-            <div class="nav-center">
-                <a href="../index.html" class="nav-brand">SportsInfo</a>
             </div>
             <div class="nav-right">
                 <a href="about.html" class="nav-link">About Us</a>
@@ -61,10 +57,51 @@
         </section>
 
         <footer class="footer">
-            <p>SportsInfo</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SportsInfo. All rights reserved.</p>
+            </div>
         </footer>
     </div>
     
     <a href="feedback.html" class="feedback-btn" title="Give Feedback">💬</a>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        // Login form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            let isValid = true;
+            
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value.trim()) {
+                alert('Please enter your email address');
+                email.focus();
+                isValid = false;
+            } else if (!emailPattern.test(email.value)) {
+                alert('Please enter a valid email address');
+                email.focus();
+                isValid = false;
+            }
+            
+            // Password validation
+            if (isValid && !password.value) {
+                alert('Please enter your password');
+                password.focus();
+                isValid = false;
+            } else if (isValid && password.value.length < 6) {
+                alert('Password must be at least 6 characters long');
+                password.focus();
+                isValid = false;
+            }
+            
+            if (isValid) {
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>
