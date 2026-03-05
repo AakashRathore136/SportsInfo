@@ -198,17 +198,15 @@
                 }
             }
             
-            // Password validation
+            // Password validation - Strong password requirements
+            const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
             if (isValid && !password.value) {
                 alert('Please create a password');
                 password.focus();
                 isValid = false;
-            } else if (isValid && password.value.length < 8) {
-                alert('Password must be at least 8 characters long');
-                password.focus();
-                isValid = false;
-            } else if (isValid && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password.value)) {
-                alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+            } else if (isValid && !strongPasswordPattern.test(password.value)) {
+                alert('Password must contain:\n- At least 8 characters\n- One uppercase letter (A-Z)\n- One lowercase letter (a-z)\n- One number (0-9)\n- One special character (@$!%*?&)');
                 password.focus();
                 isValid = false;
             }

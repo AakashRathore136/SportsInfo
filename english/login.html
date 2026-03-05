@@ -76,7 +76,7 @@
             let isValid = true;
             
             // Email validation
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+in$/;
             if (!email.value.trim()) {
                 alert('Please enter your email address');
                 email.focus();
@@ -87,13 +87,15 @@
                 isValid = false;
             }
             
-            // Password validation
+            // Password validation - Strong password requirements
+            const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
             if (isValid && !password.value) {
                 alert('Please enter your password');
                 password.focus();
                 isValid = false;
-            } else if (isValid && password.value.length < 6) {
-                alert('Password must be at least 6 characters long');
+            } else if (isValid && !strongPasswordPattern.test(password.value)) {
+                alert('Password must contain:\n- At least 8 characters\n- One uppercase letter (A-Z)\n- One lowercase letter (a-z)\n- One number (0-9)\n- One special character (@$!%*?&)');
                 password.focus();
                 isValid = false;
             }

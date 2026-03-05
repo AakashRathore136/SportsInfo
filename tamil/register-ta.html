@@ -138,17 +138,15 @@
                 }
             }
             
-            // Password validation
+            // Password validation - Strong password requirements
+            const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
             if (isValid && !password.value) {
                 alert('தயவுசெய்து கடவுச்சொல் உருவாக்கவும்');
                 password.focus();
                 isValid = false;
-            } else if (isValid && password.value.length < 8) {
-                alert('கடவுச்சொல் குறைந்தது 8 எழுத்துகள் நீளமாக இருக்க வேண்டும்');
-                password.focus();
-                isValid = false;
-            } else if (isValid && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password.value)) {
-                alert('கடவுச்சொல்லில் குறைந்தது ஒரு பெரிய எழுத்து, ஒரு சிறிய எழுத்து மற்றும் ஒரு எண் இருக்க வேண்டும்');
+            } else if (isValid && !strongPasswordPattern.test(password.value)) {
+                alert('கடவுச்சொல்லில் இருக்க வேண்டியவை:\n- குறைந்தது 8 எழுத்துகள்\n- ஒரு பெரிய எழுத்து (A-Z)\n- ஒரு சிறிய எழுத்து (a-z)\n- ஒரு எண் (0-9)\n- ஒரு பிரிப்பான் எழுத்து (@$!%*?&)');
                 password.focus();
                 isValid = false;
             }

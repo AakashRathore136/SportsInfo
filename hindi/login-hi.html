@@ -77,13 +77,15 @@
                 isValid = false;
             }
             
-            // Password validation
+            // Password validation - Strong password requirements
+            const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
             if (isValid && !password.value) {
                 alert('कृपया अपना पासवर्ड दर्ज करें');
                 password.focus();
                 isValid = false;
-            } else if (isValid && password.value.length < 6) {
-                alert('पासवर्ड कम से कम 6 अक्षर लंबा होना चाहिए');
+            } else if (isValid && !strongPasswordPattern.test(password.value)) {
+                alert('पासवर्ड में होना चाहिए:\n- कम से कम 8 वर्ण\n- एक बड़ा अक्षर (A-Z)\n- एक छोटा अक्षर (a-z)\n- एक संख्या (0-9)\n- एक विशेष वर्ण (@$!%*?&)');
                 password.focus();
                 isValid = false;
             }
